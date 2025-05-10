@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import signin from "/public/SignIn.svg";
+import signin from "/SignIn.svg";
 import { toast, Toaster } from "sonner";
 import { getFormData } from "../lib/utils";
 import { login } from "../request";
@@ -34,19 +34,21 @@ function Login() {
     <div className="flex h-screen items-center bg-white">
       <img
         src={signin}
-        className="w-[50%] h-full bg-[#C9AC8CED] px-[50px] py-[101px]"
+        className="w-[43%] h-full bg-[#C9AC8CED] px-[50px] py-[101px]"
         alt="Sign In Illustration"
       />
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white px-[100px] pb-[140px] pt-[123px] text-black"
+        className="bg-white  flex flex-col mx-auto  text-black"
       >
-        <h2 className="mb-5 font-slab text-[40px] font-black">Sign in</h2>
+        <h2 className="mb-5 font-slab text-[40px] font-black text-left">
+          Sign in
+        </h2>
 
         <div className="flex flex-col gap-5">
           <input
-            className="w-[430px] rounded-xl border border-[#474747] px-[29px] py-[16px]"
+            className="w-50% rounded-xl border border-[#474747] px-[29px] py-[16px]"
             name="email"
             type="email"
             placeholder="Email"
@@ -74,7 +76,7 @@ function Login() {
         <Button
           type="submit"
           disabled={isLoading}
-          className="mt-[39px] rounded-full bg-[#152540] max-w-[430px] w-full py-6 text-[18px] font-medium text-white disabled:opacity-50"
+          className="mt-[39px] rounded-full bg-[#152540] max-w-[430px] w-full py-[27px] text-[18px] font-medium text-white disabled:opacity-50"
         >
           {isLoading ? (
             <>

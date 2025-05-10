@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "sonner/styles.css";
-
 body {
   background-color: #191919;
 }
