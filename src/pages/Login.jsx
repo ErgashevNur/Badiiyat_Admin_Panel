@@ -6,30 +6,41 @@ import { toast, Toaster } from "sonner";
 import { getFormData } from "../lib/utils";
 import { login } from "../request";
 import { useAppStore } from "../lib/zustand";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const setAdmin = useAppStore((state) => state.setAdmin);
+  const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
     const result = getFormData(e.target);
     setIsLoading(true);
 
-    login(result)
-      .then((res) => {
-        console.log(res);
+    try {
+      const res = await login(result);
 
-        console.log(setAdmin);
-        setAdmin(res);
+      if (!res || res.status === "error" || !res.refreshtoken) {
+        toast.error(res?.message || "Login muvaffaqiyatsiz");
+        return;
+      }
 
-        toast.success("Xush kelibsiz!");
-      })
-      .catch(({ message }) => toast.error(message))
-      .finally(() => setIsLoading(false));
+      toast.success("Xush kelibsiz!");
+      setAdmin(res || {});
+
+      const refreshToken = res.refreshtoken;
+      localStorage.setItem("refreshToken", refreshToken);
+
+      navigate("/");
+    } catch (err) {
+      toast.error(err.message || "Loginda xatolik");
+    } finally {
+      setIsLoading(false);
+    }
   }
+
   return (
     <div className="flex h-screen items-center bg-white">
       <img
